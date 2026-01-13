@@ -97,6 +97,7 @@ body {
   background: linear-gradient(90deg, var(--text-main), var(--accent), var(--text-main));
   background-size: 200%;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: slide 6s infinite linear;
 }
