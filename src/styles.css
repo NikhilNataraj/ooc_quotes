@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
+
+:root {
+  /* Restored Light Mode - Warm Cream & Slate */
+  --bg: #f8f9fa;
+  --card-bg: #ffffff;
+  --text-main: #2d3436;
+  --text-muted: #636e72;
+  --accent: #d4af37; /* Metallic Gold */
+  --border: #dfe6e9;
+  --pop-shadow: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] {
+  /* Restored Dark Mode - Deep Charcoal & Bright Gold */
+  --bg: #121212;
+  --card-bg: #1e1e1e;
+  --text-main: #e0e0e0;
+  --text-muted: #b0b0b0;
+  --accent: #ffcc33; /* Vivid Gold */
+  --border: #333333;
+  --pop-shadow: rgba(0, 0, 0, 0.5);
+}
+
+.app-wrapper {
+  background-color: var(--bg);
+  min-height: 100vh;
+  width: 100%;
+  transition: background 0.4s ease;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-main);
+}
+
+.container {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text-main);
+  cursor: pointer;
+  font-weight: 600;
+  z-index: 100;
+  transition: all 0.2s ease;
+}
+
+.header {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 40px;
+}
+
+/* Featured Quote Card */
+.rotation-card {
+  background: var(--card-bg);
+  padding: 50px 30px;
+  border-radius: 12px;
+  width: min(700px, 90%);
+  margin: 0 auto 80px;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px var(--pop-shadow);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.rotation-card:hover {
+  transform: scale(1.02);
+}
+
+.setup {
+  font-size: 0.9rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.punchline {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.4;
+  color: var(--text-main);
+}
+
+.animated-text {
+  background: linear-gradient(90deg, var(--text-main), var(--accent), var(--text-main));
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: slide 6s infinite linear;
+}
+
+@keyframes slide {
+  0% { background-position: 0%; }
+  100% { background-position: 200%; }
+}
+
+/* Quote Grid */
+.quote-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+  width: min(1200px, 95%);
+  margin: 0 auto;
+}
+
+.quote-card {
+  background: var(--card-bg);
+  color: var(--text-main);
+  padding: 30px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  text-align: left;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  /* Pop-up effect */
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.quote-card:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 20px 40px var(--pop-shadow);
+  border-color: var(--accent);
+}
+
+.all-header {
+  font-size: 1.6rem;
+  color: var(--text-muted);
+  margin-bottom: 40px;
+  border-bottom: 2px solid var(--border);
+  display: inline-block;
+  padding-bottom: 10px;
+}
