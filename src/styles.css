@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&family=Space+Mono&display=swap');
 
-/* --- 1. CORE SETUP --- */
+/* --- 1. CORE SETUP & THEMES --- */
 * { box-sizing: border-box; }
 
 :root {
@@ -25,7 +25,7 @@ body {
   font-family: 'Poppins', sans-serif;
   color: var(--text-main);
   background-color: var(--bg);
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 .app-wrapper {
@@ -34,10 +34,9 @@ body {
   overflow-x: hidden;
   position: relative;
   background-color: var(--bg);
-  transition: background 0.3s steps(4);
 }
 
-/* --- 2. OVERLAYS & UI --- */
+/* --- 2. OVERLAYS & STATUS --- */
 .noise-overlay {
   position: fixed;
   top: 0;
@@ -61,7 +60,6 @@ body {
   font-size: 10px;
   padding: 5px 15px;
   z-index: 1000;
-  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .nav-controls {
@@ -81,10 +79,14 @@ body {
   padding: 8px 12px;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.1s ease;
 }
 
-/* --- 3. LAYOUT & CONTAINERS --- */
+.brutal-btn:active {
+  transform: translate(2px, 2px);
+}
+
+/* --- 3. CONTAINERS & HEADERS --- */
 .container {
   padding: 100px 15px 60px;
   max-width: 1100px;
@@ -98,18 +100,18 @@ body {
   font-size: clamp(1.4rem, 5vw, 2.5rem);
   font-weight: 800;
   text-transform: uppercase;
-  padding: 15px;
+  padding: 15px 25px;
   border: var(--border-thick);
-  display: inline-block;
+  display: table;
   background: var(--card-bg);
   color: var(--text-main);
   box-shadow: 6px 6px 0px var(--text-main);
   margin-bottom: 50px;
   max-width: 100%;
-  overflow-wrap: break-word;
+  white-space: nowrap;
 }
 
-/* --- 4. CARDS & GRID --- */
+/* --- 4. CARDS & AVATAR --- */
 .rotation-card {
   background: var(--card-bg);
   border: var(--border-thick);
@@ -152,7 +154,7 @@ body {
   top: 32%;
   left: 10%;
   width: 80%;
-  height: 18px;
+  height: 20px;
   background: #000;
   transform: rotate(-2deg);
   z-index: 10;
@@ -173,6 +175,7 @@ body {
   text-transform: uppercase;
 }
 
+/* --- 5. GRID & ARCHIVE --- */
 .quote-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -213,7 +216,7 @@ body {
   font-family: 'Space Mono', monospace;
 }
 
-/* --- 5. DISCLAIMER SYSTEM --- */
+/* --- 6. DISCLAIMER SYSTEM --- */
 .disclaimer-overlay {
   position: fixed;
   top: 0;
@@ -225,39 +228,62 @@ body {
   align-items: center;
   justify-content: center;
   z-index: 10000;
-  padding: 15px;
+  padding: 20px;
 }
 
 .disclaimer-modal {
   background: var(--card-bg);
   border: var(--border-thick);
-  padding: clamp(20px, 5vw, 40px);
+  padding: clamp(40px, 5vw, 50px);
   box-shadow: 10px 10px 0px var(--accent);
-  max-width: 500px;
+  max-width: 800px;
   width: 100%;
   text-align: center;
-  word-wrap: break-word; 
-  overflow: hidden;
   color: var(--text-main);
+  overflow: hidden;
 }
 
+.disclaimer-modal .header {
+  position: absolute;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 15px 28px;
+  background: var(--card-bg);
+  border: var(--border-thick);
+  font-weight: 800;
+  font-size: 2rem;
+  white-space: nowrap;
+  box-shadow: 6px 6px 0 var(--text-main);
+}
+
+.disclaimer-modal p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-top: 100px;
+  margin-bottom: 20px;
+}
 .disclaimer-actions {
   display: flex;
   gap: 20px;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 30px;
+}
+
+.brutal-btn {
+  border: var(--border-thick);
+  background: var(--card-bg);
+  padding: 10px 18px;
+  font-family: 'Space Mono', monospace;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .agree-btn {
   background: var(--accent) !important;
   color: #000000 !important;
-  flex: 1;
-}
-
-.decline-btn {
-  background: var(--card-bg);
-  color: var(--text-main);
-  flex: 1;
+  flex: 0.3;
 }
 
 .decline-btn:hover {
@@ -266,7 +292,7 @@ body {
   border-color: #ff4757 !important;
 }
 
-/* --- 6. ANIMATIONS --- */
+/* --- 7. ANIMATIONS --- */
 @keyframes physicsBounce {
   0% { transform: translateY(-100vh) rotate(15deg); opacity: 0; }
   60% { transform: translateY(15px) rotate(-5deg); opacity: 1; }
@@ -277,17 +303,27 @@ body {
   animation: physicsBounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
 }
 
-/* --- 7. MOBILE RESPONSIVENESS --- */
+/* --- 8. RESPONSIVENESS --- */
 @media (max-width: 650px) {
+  .header,
+  .disclaimer-modal .header {
+    white-space: normal;
+    display: block;
+    width: 90%;
+    font-size: 1.2rem;
+  }
+
   .rotation-content {
     flex-direction: column;
     align-items: flex-start;
     gap: 20px;
   }
+
   .prof-avatar-container {
-    width: 90px;
-    height: 90px;
+    width: 100px;
+    height: 100px;
   }
+
   .nav-controls {
     position: relative;
     top: 0;
@@ -295,16 +331,17 @@ body {
     width: 100%;
     justify-content: center;
     margin-bottom: 30px;
-    padding: 0 10px;
   }
+
   .container { padding-top: 20px; }
-  .disclaimer-modal {
-    padding: 25px 15px;
-    box-shadow: 6px 6px 0px var(--accent);
-  }
-  .rotation-card { padding: 20px 15px; }
+
   .disclaimer-actions {
     flex-direction: column;
     width: 100%;
+  }
+
+  .disclaimer-modal {
+    padding: 30px 15px;
+    box-shadow: 6px 6px 0px var(--accent);
   }
 }
