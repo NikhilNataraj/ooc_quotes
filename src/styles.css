@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&family=Space+Mono&display=swap');
 
+/* --- 1. CORE SETUP --- */
 * { box-sizing: border-box; }
 
 :root {
@@ -18,15 +19,25 @@
   --border-thick: 3px solid #ffffff;
 }
 
-.app-wrapper {
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-main);
   background-color: var(--bg);
+  transition: color 0.3s ease;
+}
+
+.app-wrapper {
   min-height: 100vh;
   width: 100%;
   overflow-x: hidden;
   position: relative;
+  background-color: var(--bg);
   transition: background 0.3s steps(4);
 }
 
+/* --- 2. OVERLAYS & UI --- */
 .noise-overlay {
   position: fixed;
   top: 0;
@@ -39,15 +50,43 @@
   background-image: url("https://grains.staticloud.com/images/noise.png");
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins', sans-serif;
-  color: var(--text-main);
+.status-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--text-main);
+  color: var(--bg);
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  padding: 5px 15px;
+  z-index: 1000;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
+.nav-controls {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.brutal-btn {
+  background: var(--card-bg);
+  border: var(--border-thick);
+  color: var(--text-main);
+  font-family: 'Space Mono', monospace;
+  padding: 8px 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* --- 3. LAYOUT & CONTAINERS --- */
 .container {
-  padding: 100px 20px 60px;
+  padding: 100px 15px 60px;
   max-width: 1100px;
   margin: 0 auto;
   width: 100%;
@@ -56,18 +95,21 @@ body {
 }
 
 .header {
-  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-size: clamp(1.4rem, 5vw, 2.5rem);
   font-weight: 800;
   text-transform: uppercase;
-  padding: 20px;
+  padding: 15px;
   border: var(--border-thick);
   display: inline-block;
   background: var(--card-bg);
   color: var(--text-main);
   box-shadow: 6px 6px 0px var(--text-main);
   margin-bottom: 50px;
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 
+/* --- 4. CARDS & GRID --- */
 .rotation-card {
   background: var(--card-bg);
   border: var(--border-thick);
@@ -77,6 +119,7 @@ body {
   text-align: left;
   width: 100%;
   max-width: 850px;
+  color: var(--text-main);
 }
 
 .rotation-content {
@@ -130,39 +173,10 @@ body {
   text-transform: uppercase;
 }
 
-.nav-controls {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  display: flex;
-  gap: 10px;
-  z-index: 1000;
-}
-
-.brutal-btn {
-  background: var(--card-bg);
-  border: var(--border-thick);
-  color: var(--text-main);
-  font-family: 'Space Mono', monospace;
-  padding: 8px 12px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
 .quote-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 25px;
-}
-
-@keyframes physicsBounce {
-  0% { transform: translateY(-100vh) rotate(15deg); opacity: 0; }
-  60% { transform: translateY(15px) rotate(-5deg); opacity: 1; }
-  100% { transform: translateY(0) rotate(var(--original-tilt, 0deg)); opacity: 1; }
-}
-
-.physics-bounce {
-  animation: physicsBounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
 }
 
 .quote-card {
@@ -174,6 +188,13 @@ body {
   transition: all 0.2s ease;
 }
 
+.quote-card:hover {
+  background: var(--accent);
+  color: #000000 !important;
+  transform: scale(1.05) rotate(0deg) !important;
+  z-index: 10;
+}
+
 .redacted-reveal {
   background: var(--text-main);
   color: var(--text-main);
@@ -181,13 +202,6 @@ body {
 
 .quote-card:hover .redacted-reveal {
   background: transparent;
-}
-
-.quote-card:hover {
-  background: var(--accent);
-  color: #000000 !important;
-  transform: scale(1.05) rotate(0deg) !important;
-  z-index: 10;
 }
 
 .all-header {
@@ -199,19 +213,71 @@ body {
   font-family: 'Space Mono', monospace;
 }
 
-.status-bar {
+/* --- 5. DISCLAIMER SYSTEM --- */
+.disclaimer-overlay {
   position: fixed;
-  bottom: 0;
+  top: 0;
   left: 0;
   width: 100%;
-  background: var(--text-main);
-  color: var(--bg);
-  font-family: 'Space Mono', monospace;
-  font-size: 10px;
-  padding: 5px 15px;
-  z-index: 1000;
+  height: 100%;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 15px;
 }
 
+.disclaimer-modal {
+  background: var(--card-bg);
+  border: var(--border-thick);
+  padding: clamp(20px, 5vw, 40px);
+  box-shadow: 10px 10px 0px var(--accent);
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  word-wrap: break-word; 
+  overflow: hidden;
+  color: var(--text-main);
+}
+
+.disclaimer-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.agree-btn {
+  background: var(--accent) !important;
+  color: #000000 !important;
+  flex: 1;
+}
+
+.decline-btn {
+  background: var(--card-bg);
+  color: var(--text-main);
+  flex: 1;
+}
+
+.decline-btn:hover {
+  background: #ff4757 !important;
+  color: #ffffff !important;
+  border-color: #ff4757 !important;
+}
+
+/* --- 6. ANIMATIONS --- */
+@keyframes physicsBounce {
+  0% { transform: translateY(-100vh) rotate(15deg); opacity: 0; }
+  60% { transform: translateY(15px) rotate(-5deg); opacity: 1; }
+  100% { transform: translateY(0) rotate(var(--original-tilt, 0deg)); opacity: 1; }
+}
+
+.physics-bounce {
+  animation: physicsBounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+/* --- 7. MOBILE RESPONSIVENESS --- */
 @media (max-width: 650px) {
   .rotation-content {
     flex-direction: column;
@@ -222,7 +288,23 @@ body {
     width: 90px;
     height: 90px;
   }
-  .header { font-size: 1.4rem; padding: 15px; }
-  .nav-controls { position: relative; top: 0; right: 0; margin-bottom: 20px; justify-content: center; }
+  .nav-controls {
+    position: relative;
+    top: 0;
+    right: 0;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 30px;
+    padding: 0 10px;
+  }
   .container { padding-top: 20px; }
+  .disclaimer-modal {
+    padding: 25px 15px;
+    box-shadow: 6px 6px 0px var(--accent);
+  }
+  .rotation-card { padding: 20px 15px; }
+  .disclaimer-actions {
+    flex-direction: column;
+    width: 100%;
+  }
 }

@@ -37,6 +37,7 @@ export default function App() {
   const [status, setStatus] = useState("System Standby...");
   const [isDark, setIsDark] = useState(false);
   const [resetKey, setResetKey] = useState(0);
+  const [isAgreed, setIsAgreed] = useState(false); // New state for disclaimer
 
   useEffect(() => {
     fetch("/quotes.txt")
@@ -50,9 +51,8 @@ export default function App() {
       });
   }, []);
 
-  // UseEffect for automatic rotation
   useEffect(() => {
-    if (quotes.length === 0) return;
+    if (quotes.length === 0 || !isAgreed) return;
 
     const rotate = () => {
       const chosen = quotes[Math.floor(Math.random() * quotes.length)];
@@ -60,22 +60,48 @@ export default function App() {
       setStatus(logs[Math.floor(Math.random() * logs.length)]);
     };
 
-    rotate(); // Initial call
+    rotate(); 
     const interval = setInterval(rotate, 4000);
     return () => clearInterval(interval);
-  }, [quotes]);
+  }, [quotes, isAgreed]);
 
   const triggerReset = () => {
-    // Manually trigger a rotation for the button click
     const chosen = quotes[Math.floor(Math.random() * quotes.length)];
     setCurrent(chosen.text);
     setStatus(logs[Math.floor(Math.random() * logs.length)]);
-    
-    // Re-randomize grid tilts and trigger physics bounce
     setQuotes(prev => prev.map(q => ({ ...q, tilt: Math.random() * 4 - 2 })));
     setResetKey(k => k + 1);
   };
 
+  const handleDecline = () => {
+    window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"; // Redirect website
+  };
+
+  // 1. Render Disclaimer if not agreed
+  if (!isAgreed) {
+    return (
+      <div className="disclaimer-overlay" data-theme={isDark ? "dark" : "light"}>
+        <div className="disclaimer-modal physics-bounce">
+          <h2 className="header">ACCESS_WARNING</h2>
+          <p className="disclaimer-text">
+            You are about to enter the <strong>Out-of-Context ADSA Archives</strong>. 
+            The content within is strictly for entertainment purposes and lacks any 
+            intended professional context. 
+            <br /><br />
+            By clicking <strong>AGREE</strong>, you acknowledge that you have a sense of humor 
+            and will not hold the archive-keepers (or the Professor) liable for any 
+            uncontrollable laughter or confusion.
+          </p>
+          <div className="disclaimer-actions">
+            <button className="brutal-btn agree-btn" onClick={() => setIsAgreed(true)}>I_AGREE</button>
+            <button className="brutal-btn decline-btn" onClick={handleDecline}>EXIT_SYSTEM</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // 2. Render Main Website
   return (
     <div className="app-wrapper" data-theme={isDark ? "dark" : "light"}>
       <div className="noise-overlay"></div>
@@ -89,13 +115,16 @@ export default function App() {
       </div>
 
       <div className="container">
-        <h1 className="header">Out-of-Context ADSA Quotes</h1>
+        <h1 className="header">Out-of-Context_ADSA_Quotes</h1>
 
         <div className="rotation-card physics-bounce" key={`rot-${resetKey}`}>
           <div className="rotation-content">
             <div className="prof-avatar-container">
-              <img src="/adsa_img.jpg" alt="Redacted Prof" className="prof-avatar" />
-              {/* This is the bar that covers the eyes */}
+              <img 
+                src={isDark ? "/adsa_img_gen.png" : "/adsa_img.jpg"} 
+                alt="Redacted Prof" 
+                className="prof-avatar" 
+              />
               <div className="eye-redaction-bar"></div>
             </div>
             <div className="quote-text-area">
