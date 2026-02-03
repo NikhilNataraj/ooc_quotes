@@ -102,13 +102,22 @@ body {
   text-transform: uppercase;
   padding: 15px 25px;
   border: var(--border-thick);
-  display: table;
   background: var(--card-bg);
   color: var(--text-main);
   box-shadow: 6px 6px 0px var(--text-main);
-  margin-bottom: 50px;
   max-width: 100%;
+  /* white-space: nowrap; */
+  /* display: table; */
+  /* margin-bottom: 50px; */
+
+  /* Stable Centering Fix */
+  display: block;
+  width: fit-content;
+  margin: 0 auto 50px auto;
+  
+  /* Wrap Fix */
   white-space: nowrap;
+  overflow: visible;
 }
 
 /* --- 4. CARDS & AVATAR --- */
@@ -120,8 +129,9 @@ body {
   margin: 0 auto 80px;
   text-align: left;
   width: 100%;
-  max-width: 850px;
+  max-width: 1000px;
   color: var(--text-main);
+  min-height: 220px;
 }
 
 .rotation-content {
@@ -151,7 +161,7 @@ body {
 
 .eye-redaction-bar {
   position: absolute;
-  top: 32%;
+  top: 30%;
   left: 10%;
   width: 80%;
   height: 20px;
@@ -301,6 +311,7 @@ body {
 
 .physics-bounce {
   animation: physicsBounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  will-change: transform; 
 }
 
 /* --- 8. RESPONSIVENESS --- */
@@ -311,6 +322,7 @@ body {
     display: block;
     width: 90%;
     font-size: 1.2rem;
+    height: fit-content;
   }
 
   .rotation-content {
@@ -331,6 +343,7 @@ body {
     width: 100%;
     justify-content: center;
     margin-bottom: 30px;
+    margin-top: 2%;
   }
 
   .container { padding-top: 20px; }
@@ -343,5 +356,11 @@ body {
   .disclaimer-modal {
     padding: 30px 15px;
     box-shadow: 6px 6px 0px var(--accent);
+  }
+}
+
+@media (max-width: 350px) {
+  .header{
+    font-size: 1rem;
   }
 }
