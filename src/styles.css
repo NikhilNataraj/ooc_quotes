@@ -1,4 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&family=Space+Mono&display=swap');
+:root {
+  --eye-top: 28%;
+  --eye-left: 15%;
+  --eye-rotate: -10deg;
+}
+
+[data-theme='dark'] {
+  --eye-top: 18%;
+  --eye-left: 15%;
+  --eye-rotate: -8deg;
+}
 
 /* --- 1. CORE SETUP & THEMES --- */
 * { box-sizing: border-box; }
@@ -161,12 +172,12 @@ body {
 
 .eye-redaction-bar {
   position: absolute;
-  top: 30%;
-  left: 10%;
-  width: 80%;
-  height: 20px;
+  top: var(--eye-top);
+  left: var(--eye-left);
+  width: 70%;
+  height: 15px;
   background: #000;
-  transform: rotate(-2deg);
+  transform: rotate(var(--eye-rotate));
   z-index: 10;
 }
 
@@ -323,6 +334,10 @@ body {
     width: 90%;
     font-size: 1.2rem;
     height: fit-content;
+  }
+
+  .rotation-card {
+    min-height: 350px;
   }
 
   .rotation-content {

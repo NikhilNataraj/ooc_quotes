@@ -6,7 +6,7 @@ const logs = [
   "Extracting questionable context...",
   "Calibrating social friction...",
   "Redacting sensitive logic...",
-  "Indexing ADSA archives..."
+  "Indexing Quotes archives..."
 ];
 
 const ScrambleText = ({ text }) => {
@@ -84,7 +84,7 @@ export default function App() {
         <div className="disclaimer-modal physics-bounce">
           <h2 className="header">ACCESS_WARNING</h2>
           <p className="disclaimer-text">
-            You are about to enter the <strong>Out-of-Context ADSA Archives</strong>. 
+            You are about to enter the <strong>Out-of-Context Quotes Archives</strong>. 
             The content within is strictly for entertainment purposes and lacks any 
             intended professional context. 
             <br /><br />
@@ -115,13 +115,13 @@ export default function App() {
       </div>
 
       <div className="container">
-        <h1 className="header">Out-of-Context_ADSA_Quotes</h1>
+        <h1 className="header">Out-of-Context_Quotes</h1>
 
         <div className="rotation-card physics-bounce" key={`rot-${resetKey}`}>
           <div className="rotation-content">
             <div className="prof-avatar-container">
               <img 
-                src={isDark ? "/adsa_img_gen.png" : "/adsa_img.jpg"} 
+                src={isDark ? "/adsa_img_gen_dark.png" : "/adsa_img_gen_light.png"} 
                 alt="Redacted Prof" 
                 className="prof-avatar" 
               />
