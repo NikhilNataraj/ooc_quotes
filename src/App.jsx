@@ -86,20 +86,18 @@ export default function App() {
           <p className="disclaimer-text">
             You are about to enter the <strong>Out-of-Context Quotes Archives</strong>. 
             This website is a satirical and parody publication.
-            The content within is strictly for entertainment purposes and lacks any 
-            intended professional context. 
+            The content within is strictly for entertainment purposes and lacks any professional context. 
             <br /><br />             
             Please do not take offense or treat any of the information as factual.
             If you find yourself getting deeply offended, it is recommended to step away from the screen, 
             take a deep breath, and remember that none of this is intended to be taken seriously.
             <br /><br />
             By clicking <strong>AGREE</strong>, you acknowledge that you have a sense of humor 
-            and will not hold the archive-keepers (or the Professor) liable for any 
-            uncontrollable laughter or confusion.
+            and will not hold the archive-keepers (or the Professor) liable for any laughter or confusion.
 
           </p>
           <div className="disclaimer-actions">
-            <button className="brutal-btn agree-btn" onClick={() => setIsAgreed(true)}>I_AGREE</button>
+            <button className="brutal-btn agree-btn" onClick={() => setIsAgreed(true)}>AGREE</button>
             <button className="brutal-btn decline-btn" onClick={handleDecline}>EXIT_SYSTEM</button>
           </div>
         </div>
